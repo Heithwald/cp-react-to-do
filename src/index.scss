@@ -47,6 +47,9 @@ code {
     display: flex;
     margin-right: 13px;
     font-size: 1.5rem;
+    &:last-of-type {
+      margin: 0;
+    }
   }
 }
 

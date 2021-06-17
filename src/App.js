@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CreateTask } from "./components/CreateTask";
 import { TaskFilters } from "./components/TaskFilters";
 import { TaskList } from "./components/TaskList";
@@ -7,6 +7,24 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [tasks, setTasks] = useState([]);
   const [filterType, setFilterType] = useState(null);
+
+  /// Парсим tasks и filterType из localStorage при первом рендере и устанавливаем из значения в соответствующие state ///
+  useEffect(() => {
+    setTasks(JSON.parse(window.localStorage.getItem("tasks")));
+  }, []);
+
+  useEffect(() => {
+    setFilterType(JSON.parse(window.localStorage.getItem("filterType")));
+  }, []);
+
+  /// Отправляем изменения в tasks и filterType в localStorage ///
+  useEffect(() => {
+    window.localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    window.localStorage.setItem("filterType", JSON.stringify(filterType));
+  }, [filterType]);
 
   /// Обработчик клика кнопки. Вызывает функцию cоздания task при наличии значения в строке ///
   const handleSubmit = (event) => {
