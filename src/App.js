@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CreateTask } from "./components/CreateTask";
 import { TaskFilters } from "./components/TaskFilters";
 import { TaskList } from "./components/TaskList";
@@ -7,6 +7,23 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [tasks, setTasks] = useState([]);
   const [filterType, setFilterType] = useState(null);
+
+  /// Сохранение/получение state в/из localStorage ///
+  useEffect(() => {
+    setTasks(JSON.parse(window.localStorage.getItem(('tasks'))));
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks])
+
+  useEffect(() => {
+    setFilterType(JSON.parse(window.localStorage.getItem(('filterType'))));
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('filterType', JSON.stringify(filterType));
+  }, [filterType])
 
   /// Обработчик клика кнопки. Вызывает функцию cоздания task при наличии значения в строке ///
   const handleSubmit = (event) => {
