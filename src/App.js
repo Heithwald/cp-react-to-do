@@ -11,6 +11,7 @@ const App = () => {
   /// Сохранение/получение state в/из localStorage ///
   useEffect(() => {
     setTasks(JSON.parse(window.localStorage.getItem(('tasks'))));
+    console.log(NYMPHEA);
   }, [])
 
   useEffect(() => {
